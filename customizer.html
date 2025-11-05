@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>호소의 문장들</title>
+    <style>
+        /* ---- Webfonts ---- */
+        @font-face {
+            font-family: 'HANBatang';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2104@1.0/HANBatang.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'SunBatang-Light';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_eight@1.0/SunBatang-Light.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'DungGeunMo';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Chosunilbo_myungjo';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Chosunilbo_myungjo.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'CookieRun-Regular';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/CookieRun-Regular.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Ownglyph_corncorn-Rg';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2412-1@1.0/Ownglyph_corncorn-Rg.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Pretendard-Regular';
+            src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'MaruBuri';
+            src: url(https://hangeul.pstatic.net/hangeul_static/webfont/MaruBuri/MaruBuri-Regular.eot);
+            src: url(https://hangeul.pstatic.net/hangeul_static/webfont/MaruBuri/MaruBuri-Regular.eot?#iefix) format("embedded-opentype"),
+                url(https://hangeul.pstatic.net/hangeul_static/webfont/MaruBuri/MaruBuri-Regular.woff2) format("woff2"),
+                url(https://hangeul.pstatic.net/hangeul_static/webfont/MaruBuri/MaruBuri-Regular.woff) format("woff"),
+                url(https://hangeul.pstatic.net/hangeul_static/webfont/MaruBuri/MaruBuri-Regular.ttf) format("truetype");
+        }
+
+        @font-face {
+            font-family: 'InkLipquid';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/InkLipquid.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'NanumSquareNeoBold';
+            src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.eot);
+            src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.eot?#iefix) format("embedded-opentype"),
+                url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.woff) format("woff"),
+                url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.ttf) format("truetype");
+        }
+
+        @font-face {
+            font-family: 'PyeojinGothic-Bold';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2504-1@1.0/PyeojinGothic-Bold.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Danjo-bold-Regular';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/Danjo-bold-Regular.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Noto Sans KR', sans-serif;
+            overflow-y: scroll;
+            background: #fff;
+        }
+
+        /* ✅ 두 버튼 공통 스타일 */
+        .home-button,
+        .save-banner-button {
+            position: fixed;
+            right: 20px;
+            z-index: 1000;
+            font-size: 14px;
+            padding: 10px 16px;
+            background: #000;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        /* hover 효과도 동일하게 */
+        .home-button:hover,
+        .save-banner-button:hover {
+            background: #333;
+        }
+
+        /* 위치만 다르게 */
+        .home-button {
+            bottom: 70px;
+            /* ✅ 위쪽으로 살짝 올림 */
+        }
+
+        .save-banner-button {
+            bottom: 20px;
+            /* ✅ 홈버튼 아래쪽 */
+        }
+
+        /* ---- 3-Column Layout ---- */
+        .layout {
+            display: grid;
+            grid-template-columns: 320px 1fr 280px;
+            /* 좌:320 / 중:가변 / 우:280 */
+            gap: 0;
+            width: 100%;
+            min-height: 100vh;
+            align-items: stretch;
+        }
+
+        /* Left: sidebar */
+        .sidebar {
+            width: 100%;
+            background: #fff;
+            padding: 10px;
+            box-sizing: border-box;
+            border-right: 1px solid #eee;
+            overflow-y: auto;
+        }
+
+        .category-group {
+            margin-bottom: 40px;
+        }
+
+        .category-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        /* Center: preview */
+        .center {
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        #preview {
+            border: 1px solid #ddd;
+            padding: 40px;
+            text-align: center;
+            word-break: keep-all;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            transition: all .3s ease;
+            font-size: 40px;
+            /* 슬라이더로 변경됨 */
+            box-sizing: border-box;
+            color: #000;
+        }
+
+        /* 글 흐름(쓰기 방향) */
+        .preview-horizontal {
+            writing-mode: horizontal-tb;
+            text-orientation: mixed;
+        }
+
+        /* 세로쓰기 기본값(모든 폰트 공통) */
+        .preview-vertical {
+            writing-mode: vertical-lr;
+            text-orientation: upright;
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            text-align: start;
+
+            letter-spacing: -0.06em;
+            /* 글자 간격 살짝 더 좁힘 */
+            line-height: 1.05;
+            /* 세로줄 간격도 촘촘하게 */
+            word-spacing: -0.4em;
+            /* 띄어쓰기 간격 강제 압축 */
+            white-space: pre-wrap;
+            /* 띄어쓰기·줄바꿈 유지하되 너무 벌어지지 않게 */
+        }
+
+        /* ✅ 폰트별 세밀 보정 */
+        .preview-vertical[data-font="DungGeunMo"] {
+            /* 둥근모: 지금 예쁘다 → 유지 */
+            letter-spacing: -0.04em;
+            line-height: 1.10;
+        }
+
+        .preview-vertical[data-font="CookieRun-Regular"] {
+            /* 자폭 넓음 → 더 타이트 */
+            letter-spacing: -0.08em;
+            line-height: 1.00;
+        }
+
+        .preview-vertical[data-font="PyeojinGothic-Bold"] {
+            letter-spacing: -0.06em;
+            line-height: 1.05;
+        }
+
+        .preview-vertical[data-font="Danjo-bold-Regular"] {
+            letter-spacing: -0.03em;
+            line-height: 1.05;
+        }
+
+        .preview-vertical[data-font="SunBatang-Light"] {
+            letter-spacing: -0.02em;
+            line-height: 1.10;
+        }
+
+        .preview-vertical[data-font="MaruBuri"] {
+            letter-spacing: -0.025em;
+            line-height: 1.10;
+        }
+
+        .preview-vertical[data-font="NanumSquareNeoBold"] {
+            letter-spacing: -0.06em;
+            line-height: 1.05;
+        }
+
+        .preview-vertical[data-font="Pretendard-Regular"] {
+            letter-spacing: -0.04em;
+            line-height: 1.05;
+        }
+
+        .preview-vertical[data-font="Ownglyph_corncorn-Rg"] {
+            letter-spacing: -0.07em;
+            line-height: 1.08;
+        }
+
+        .preview-vertical[data-font="Chosunilbo_myungjo"] {
+            letter-spacing: -0.02em;
+            line-height: 1.12;
+        }
+
+        .preview-vertical[data-font="InkLipquid"] {
+            /* 필기체 느낌 → 약간 느슨하게 */
+            letter-spacing: -0.01em;
+            line-height: 1.15;
+        }
+
+        .preview-vertical[data-font="HANBatang"] {
+            letter-spacing: -0.02em;
+            line-height: 1.12;
+        }
+
+
+
+
+        /* ✅ 박스 크기를 '내용에 맞게' 유동적으로 (가로형) */
+        .center #preview.preview-horizontal {
+            width: min(90%, 900px);
+            /* 넓되 너무 커지지 않게 */
+            height: auto;
+            /* 내용에 따라 높이 증가 */
+            min-height: 180px;
+            /* 기본 최소 높이 */
+            max-height: 80vh;
+            /* 너무 길면 화면 80%에서 제한 */
+            overflow: auto;
+            /* 넘치면 스크롤 */
+            white-space: pre-wrap;
+            /* 줄바꿈 + 자동 줄바꿈 */
+        }
+
+        /* ✅ 박스 크기를 '내용에 맞게' 유동적으로 (세로형) */
+        .center #preview.preview-vertical {
+            width: auto;
+            /* 내용에 따라 너비 결정 */
+            min-width: 260px;
+            /* 최소 배너 폭 */
+            max-width: 600px;
+            /* 너무 넓어지지 않게 상한 */
+            height: auto;
+            /* 내용에 따라 높이 증가 */
+            max-height: 80vh;
+            /* 너무 길면 화면 80% 제한 */
+            overflow: auto;
+            /* 넘치면 스크롤 */
+            white-space: normal;
+            /* 세로쓰기 자연 줄바꿈 */
+        }
+
+        /* Right: controls */
+        .controls {
+            background: #fff;
+            padding: 16px;
+            box-sizing: border-box;
+            border-left: 1px solid #eee;
+            overflow-y: auto;
+        }
+
+        .controls .control-group {
+            margin-bottom: 20px;
+        }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 6px;
+            background: #333;
+            border-radius: 5px;
+            outline: none;
+            margin-top: 5px;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 14px;
+            height: 14px;
+            background: #000;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        input[type="color"] {
+            width: 100%;
+            height: 30px;
+            border: 1px solid #fff;
+            border-radius: 4px;
+            background: none;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        /* Behind section */
+        .behind-section {
+            display: flex;
+            flex-wrap: nowrap;
+            padding: 40px;
+            margin-top: 0;
+            background: #fff;
+            box-sizing: border-box;
+            width: 100%;
+            border-top: 1px solid #eee;
+        }
+
+        .behind-left,
+        .behind-right {
+            flex: 1;
+            min-width: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .behind-left {
+            border-right: 1px solid #000;
+        }
+
+        .behind-left h1 {
+            margin-top: 0;
+            font-size: 50px;
+            margin-bottom: 5px;
+        }
+
+        .behind-text {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #000;
+            white-space: normal;
+            word-break: keep-all;
+        }
+
+        .behind-right img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            margin-bottom: 40px;
+            cursor: pointer;
+        }
+
+        /* Responsive */
+        @media (max-width:1024px) {
+            .layout {
+                grid-template-columns: 280px 1fr;
+            }
+
+            .controls {
+                grid-column: 1 / -1;
+                border-left: none;
+                border-top: 1px solid #eee;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <button class="home-button" onclick="goHome()">홈으로</button>
+
+    <!-- ===== 3-Column Layout ===== -->
+    <div class="layout">
+        <!-- Left: Sample Text Selectors -->
+        <div class="sidebar">
+            <div class="category-group">
+                <label for="category1">주장/요구형</label>
+                <select id="category1" onchange="setText(this.value)" style="width:100%; padding:10px; font-size:13px;">
+                    <option value="">선택하세요</option>
+                    <option value="故정주영 회장님은 손자교육 다시해라">故정주영 회장님은 손자교육 다시해라</option>
+                    <option value="서울시 8개구 특수학교 있다 강서구엔 이미 있다 특수학교는 지역별로 균등하게 설립하라!!!">서울시 8개구 특수학교 있다 강서구엔 이미 있다 특수학교는
+                        지역별로 균등하게 설립하라!!!</option>
+                    <option value="교실이 불법녹음의 장이 되지 않게 막아주세요!">교실이 불법녹음의 장이 되지 않게 막아주세요!</option>
+                    <option value="흡입독성 인지하고도 거짓광고를 주도한 SK를 즉각 기소하라">흡입독성 인지하고도 거짓광고를 주도한 SK를 즉각 기소하라</option>
+                    <option value="GTX-C노선 은마통과 결사반대 국토부는 왜 속였나">GTX-C노선 은마통과 결사반대 국토부는 왜 속였나</option>
+                    <option value="기후이상변화가 우리탓이냐? 꿀벌폐사 보상대책 즉각 마련하라!">기후이상변화가 우리탓이냐? 꿀벌폐사 보상대책 즉각 마련하라!</option>
+                    <option value="주민고통 심각하다! 피해 대책 즉각 시행하라!">주민고통 심각하다! 피해 대책 즉각 시행하라!</option>
+                    <option value="장애인 이동권 침해하는 울산시내버스 123,307번 노선 폐지를 철회하라!">장애인 이동권 침해하는 울산시내버스 123,307번 노선 폐지를 철회하라!
+                    </option>
+                    <option value="울산시장님 신명천 똥물을 막아주세요!">울산시장님 신명천 똥물을 막아주세요!</option>
+                    <option value="주민 죽이는 이슬람 사원 건축 결사반대한다!">주민 죽이는 이슬람 사원 건축 결사반대한다!</option>
+                    <option value="잠좀자자! 소음싫어!!">잠좀자자! 소음싫어!!</option>
+                    <option value="‘상생’ 해 왔다고요? 전세사기 러시안룰렛을 강요당했을 뿐입니다.">‘상생’ 해 왔다고요? 전세사기 러시안룰렛을 강요당했을 뿐입니다.</option>
+                    <option value="우리가 지켜보고 있다! 함부로 대하지 말라!">우리가 지켜보고 있다! 함부로 대하지 말라!</option>
+                    <option value="신독재권력 죽음으로 막아내자!">신독재권력 죽음으로 막아내자!</option>
+                    <option value="조용한 시위를 부탁 드립니다! 수험생들이 공부하고 있습니다.">조용한 시위를 부탁 드립니다! 수험생들이 공부하고 있습니다.</option>
+                    <option value="여기서 담배피면 안되요~!">여기서 담배피면 안되요~!</option>
+                    <option value="‘상생’ 해 왔다고요? 월세 때문에 죽겠어요. 내리고 말씀하세요.">‘상생’ 해 왔다고요? 월세 때문에 죽겠어요. 내리고 말씀하세요.</option>
+                    <option value="니 자식만 귀하냐! 내자식도 귀하다!">니 자식만 귀하냐! 내자식도 귀하다!</option>
+                    <option value="주택가 대문앞에 특수학교가 웬말이냐!">주택가 대문앞에 특수학교가 웬말이냐!</option>
+                    <option value="10.29 이태원참사, 정부는 없었다 진실대행진 진실에 투표하세요!">10.29 이태원참사, 정부는 없었다 진실대행진 진실에 투표하세요!</option>
+                    <option value="추석 행복을 위해 탄핵의 달을 띄우겠습니다">추석 행복을 위해 탄핵의 달을 띄우겠습니다</option>
+                    <option value="힘드시죠? 전화하세요!">힘드시죠? 전화하세요!</option>
+                    <option value="국민이 먼저다! 이슬람 사원 건축 결사 반대한다!">국민이 먼저다! 이슬람 사원 건축 결사 반대한다!</option>
+                    <option value="직진으로 가면 되지! 왜 꺽어서 은마관통? 2만명 주거지 관통할 이유 없다!">직진으로 가면 되지! 왜 꺽어서 은마관통? 2만명 주거지 관통할 이유
+                        없다!</option>
+                    <option value="계엄은 제 2의 4.19혁명">계엄은 제 2의 4.19혁명</option>
+                    <option value="일본 앞잡이-윤정부 퇴장! 다시, 독립운동!">일본 앞잡이-윤정부 퇴장! 다시, 독립운동!</option>
+                    <option value="실패하면 구축, 성공하면 신축 아닙니까?!">실패하면 구축, 성공하면 신축 아닙니까?!</option>
+                    <option value="연세중앙교회의 모든 예배 중단을 촉구합니다.">연세중앙교회의 모든 예배 중단을 촉구합니다.</option>
+                </select>
+            </div>
+
+            <div class="category-group">
+                <label for="category2">고발/비판형</label>
+                <select id="category2" onchange="setText(this.value)" style="width:100%; padding:10px; font-size:13px;">
+                    <option value="">선택하세요</option>
+                    <option value="전 세 사 기 보 증 금 반 환">전 세 사 기 보 증 금 반 환</option>
+                    <option value="개과천선해서 우리 동네에 이사온거니? 아님 또 사건 만들려고 이사온거니?">개과천선해서 우리 동네에 이사온거니? 아님 또 사건 만들려고 이사온거니?
+                    </option>
+                    <option value="뺨에 손이 닿지않게 조심히 다시니오! 그뺨이 누구 것이든 당신아들 손보다 귀하오!">뺨에 손이 닿지않게 조심히 다시니오! 그뺨이 누구 것이든 당신아들
+                        손보다 귀하오!</option>
+                    <option value="삼성왕 이재용 쓰레기 인간 좀 만들어 주이소">삼성왕 이재용 쓰레기 인간 좀 만들어 주이소</option>
+                    <option value="사회적 재난 현장에서 경매 장사하는 당신도 가해자!">사회적 재난 현장에서 경매 장사하는 당신도 가해자!</option>
+                    <option value="간이식 후 퇴원직전 뇌출혈로 사망했다! 두통호소 무시하고 검사도 하지않은 과실을 인정하고 사과하라!!">간이식 후 퇴원직전 뇌출혈로 사망했다! 두통호소
+                        무시...</option>
+                    <option value="대통력을 내쫓는 새누리당은 패륜아다">대통력을 내쫓는 새누리당은 패륜아다</option>
+                    <option value="피스톤 펌프 가져간 놈아! 자손만대 도둑놈만 생겨라!">피스톤 펌프 가져간 놈아! 자손만대 도둑...</option>
+                    <option value="창피해서 못 살겠어요. 박의원님이나 잘하세요">창피해서 못 살겠어요. 박의원님이나 잘하세요</option>
+                    <option value="납득할 수 없는 리그 최하위 중견수 기용">납득할 수 없는 리그 최하위 중견수 기용</option>
+                    <option value="불통 프런트 무능 양상문 떠나는 엘지팬">불통 프런트 무능 양상문 떠나는 엘지팬</option>
+                    <option value="엘지 프런트 무엇을 했습니까?">엘지 프런트 무엇을 했습니까?</option>
+                    <option value="삼가 인천 야구의 명복을 빕니다.">삼가 인천 야구의 명복을 빕니다.</option>
+                    <option value="팬심, SK야구,우승 폄하한 구단관계자 사퇴하라!">팬심, SK야구,우승 폄하한 구단관계자 사퇴하라!</option>
+                    <option value="원칙도 상식도 재미도 없는 양상문 야구 ‘암흑기’ 지나니 ‘블랙홀’ 입니까?">원칙도 상식도 재미도 없는 양상문 야구...</option>
+                    <option value="차 팔아 300억 투자의 결과? KI타이거즈의 ‘실패한 시즌’ 300억 투자 실패! 무능한 KIA 타이거즈 단장, 감독 OUT">차 팔아 300억 투자의
+                        결과? ...</option>
+                </select>
+            </div>
+
+            <div class="category-group">
+                <label for="category3">절규/호소형</label>
+                <select id="category3" onchange="setText(this.value)" style="width:100%; padding:10px; font-size:13px;">
+                    <option value="">선택하세요</option>
+                    <option value="정명석 재판 문제있다. 핵심증거 녹취파일 조작 정명석 목사의 억울함을 호소합니다">정명석 재판 문제있다...</option>
+                    <option value="서울시장님 당선을 축하드립니다 발달장애인도 서울시민이에요!!">서울시장님 당선을 축하드립니다...</option>
+                    <option value="SK 피해자들의 절규를 들어라!">SK 피해자들의 절규를 들어라!</option>
+                    <option value="현대산업개발 보증금 돌려줄테니 제발 떠나주세요!">현대산업개발 보증금 돌려줄테니...</option>
+                    <option value="맞아도 소리한번 지르지 못한 내 아들아, 엄마가 미안해">맞아도 소리한번 지르지 못한...</option>
+                    <option value="민주적 절차 없는 독단적인 공학 전환 논의 규탄한다!!">민주적 절차 없는...</option>
+                    <option value="이태원 참사사고 은마에서 또터진다">이태원 참사사고 은마에서 또터진다</option>
+                    <option value="현대그룹 정의선은 목숨팔아 돈버느냐">현대그룹 정의선은 목숨팔아 돈버느냐</option>
+                    <option value="우리의 재산과 목숨을 현산에게 맡길순 없다!">우리의 재산과 목숨을 현산에게 맡길순 없다!</option>
+                    <option value="비가오면 천장샌다 니가 와서 살아봐 죽기 전에 신축지어 멀쩡한 집 살고싶다">비가오면 천장샌다...</option>
+                    <option value="비양심적인 고양이, 개 함께 하는 세탁물 주인님들께!! ...">비양심적인 고양이, 개 함께 하는 세탁물...</option>
+                    <option value="배고파서 못살겠다! 문닫으면 죽는다!">배고파서 못살겠다!</option>
+                    <option value="테크노파크이사장님! ... 회식좀해주세요">테크노파크이사장님! ...</option>
+                    <option value="SNS에 제발 사진좀 올리지 말아 주세요~~!!">SNS에 제발 사진좀 올리지 말아 주세요~~!!</option>
+                    <option value="이곳이 사람이 사는 마을이냐 가축이 사는 동네지">이곳이 사람이 사는 마을이냐...</option>
+                    <option value="시끄러워 못살겠다! 니가 한번 살아봐라!">시끄러워 못살겠다! 니가 한번 살아봐라!</option>
+                    <option value="절임배추의 고장 문광! 악취로 썩어간다 ...">절임배추의 고장 문광! ...</option>
+                    <option value="돼지보다 못한인생, 창문열고 살아보자!">돼지보다 못한인생, 창문열고 살아보자!</option>
+                    <option value="마을버스 이용객도 광주시민이다. ...">마을버스 이용객도 광주시민이다. …</option>
+                    <option value="발파진동으로!! 집 무너질것 같아 무서워 못살겠다!">발파진동으로!! 집 무너질것 같아...</option>
+                    <option value="가축분뇨 공장시설로 사람이 죽어간다!">가축분뇨 공장시설로 사람이 죽어간다!</option>
+                    <option value="주거 밀집 지역에 장애인직업센터가 웬말이냐?">주거 밀집 지역에 장애인직업센터가 웬말이냐?</option>
+                    <option value="집회 소음으로 아기가 잠을 못 자고 울고 있습니다.">집회 소음으로 아기가 잠을 못 자고...</option>
+                    <option value="오후에도 쿵웅웅웅~ 못살겠다">오후에도 쿵웅웅웅~ 못살겠다</option>
+                    <option value="악취로 못살것다!!! 삼천 바이오 퇴비는 물러가라!">악취로 못살것다!!! ...</option>
+                    <option value="북촌한옥마을 주민도 인간답게 살고싶다">북촌한옥마을 주민도 인간답게 살고싶다</option>
+                    <option value="새벽부터 오는 관광객 주민은 쉬고싶다">새벽부터 오는 관광객 주민은 쉬고싶다</option>
+                    <option
+                        value="망했습니다…코로나로 손님이 없어도 너무 없어서 힘들어서 대출받았는데 정부가 문닫으라고 합니다 정부믿고 묻지도 않고 따지지도 않고 바로 문닫았습니다..50일동안 임대료, 전기세, 인증비, 저작권료, 보험비, 등등 고정비용이 장난아닙니다…정부는 보상 못한답니다…그래도 살아보겠다고..대출금 갚으려고 다시 열심히 해보려했습니다…또 닫으랍니다…이번에도 역시 법적으로 보상해줄수 없답니다… ㅠㅠ 가게 계약기간도 남았는데…보증금 다까먹어도 모자릅니다…폐업이 아니라 진짜 망했습니다…앞으로 남은 대출은 어찌 갚아야할지…캄캄합니다…그동안 와라코인노래연습장을 이용해주셔서 감사합니다…">
+                        망했습니다… 코로나로 손님이 없어도 ...</option>
+                    <option value="잘못했습니다. 반성하고 거듭나겠습니다.">잘못했습니다. 반성하고 거듭나겠습니다.</option>
+                    <option value="정의선 회장님! 제발 감독 좀 교체해 주세요!">정의선 회장님! 제발 감독 좀 교체해 주세요!</option>
+                    <option value="이재명 절대 안돼!! 새해 복(福) 많이 받으세요">이재명 절대 안돼!! 새해 복(福) 많이 받으세요</option>
+                    <option value="시민 시의원 여러분께 저의 진심을 담아 호소합니다.">시민 시의원 여러분께 저의 진심을 담아 호소합니다.</option>
+                    <option value="조석원을 당선시켜 주십시오. 세월호의 진실을 끝까지 밝히겠습니다.">조석원을 당선시켜 주십시오...</option>
+                    <option value="이슬람 사원 건축 제개는 주민 두 번 죽이는 것이다!">이슬람 사원 건축 제개는 ...</option>
+                    <option value="신천지인들이여! 더 이상 거짓 교리에 속지 말고 속히 돌아오기를 호소합니다.">신천지인들이여! ...</option>
+                    <option value="“할매요, 할배요 산 밑에 불 놓지 마이소" ...">“할매요, 할배요 산 밑에 불 놓지 마이소" ...</option>
+                </select>
+            </div>
+
+            <div class="category-group">
+                <label for="category4">조롱/풍자/해학형</label>
+                <select id="category4" onchange="setText(this.value)" style="width:100%; padding:10px; font-size:13px;">
+                    <option value="">선택하세요</option>
+                    <option value="삼성에게 돈달라는 소리죠??">삼성에게 돈달라는 소리죠??</option>
+                    <option value="GS칼텍스 여러분! 국밥육수도 우려내지 못할 썩은 돼지머리를...">GS칼텍스 여러분! ...</option>
+                    <option value="어렵사리 얻은 직장! 출근 첫날 지각일세!">어렵사리 얻은 직장! 출근 첫날 지각일세!</option>
+                    <option value="너희가 걱정하는 집값 하락은 로맨스? ...">너희가 걱정하는 집값 하락은 로맨스? ...</option>
+                    <option value="장가 좀 가자! 길이 막혀 시집을 안 온다네!">장가 좀 가자! 길이 막혀 시집을 안 온다네!</option>
+                    <option value="나 군대갈때도 막히더니! 아들 군대갈때도 막히네!">나 군대갈때도 막히더니! 아들 군대갈때도 막히네!</option>
+                    <option value="부처님 위로 케이블카 타는 자는 평생 재수 없다">부처님 위로 케이블카 타는 자는 평생 재수 없다</option>
+                    <option value="8월 일본인 관광객 초특가 요금 안내 ...">8월 일본인 관광객 초특가 요금 안내 ...</option>
+                    <option value="며늘아 ! 이번 추석은 너희 집에서 알콩달콩 보내렴">며늘아 ! 이번 추석은 너희 집에서 알콩달콩 보내렴</option>
+                    <option value="아범아! 추석엔 코로나 몰고 오지 말고 마음만 보내라~">아범아! 추석엔 코로나 몰고 오지 말고 마음만 보내라~</option>
+                    <option value="불효자는 “옵” 니다 설 연휴, 찾아뵙지 않는 게 “효” 입니다">불효자는 “옵” 니다 ...</option>
+                    <option value="“불타는 산림보면 속타는 산불담당자" 논 밭두렁...">“불타는 산림보면 속타는 산불담당자" ...</option>
+                    <option value="“동네 어르신들 불조심 해야합니더” 산불나면 동네 산 다 타~~여!!">“동네 어르신들 ...</option>
+                    <option value="푸른 산을 지키는 약속! 산불조심 인간님~~^^ 제발 우리 집을 지켜주세요">푸른 산을 지키는 약속! ...</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Center: Preview -->
+        <div class="center">
+            <div id="preview" class="preview-horizontal">샘플 텍스트를 선택하세요</div>
+        </div>
+
+        <!-- Right: Controls -->
+        <aside class="controls">
+            <div class="control-group">
+                <label for="orientation">배너 방향</label>
+                <select id="orientation" onchange="updatePreview()" style="width:100%;padding:6px;">
+                    <option value="horizontal">가로형</option>
+                    <option value="vertical">세로형</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label for="fontSelector">폰트</label>
+                <select id="fontSelector" onchange="updatePreview()" style="width:100%; padding:6px;">
+                    <option value="Danjo-bold-Regular">단조</option>
+                    <option value="PyeojinGothic-Bold">펴진고딕</option>
+                    <option value="SunBatang-Light">순바탕</option>
+                    <option value="MaruBuri">마루 부리</option>
+                    <option value="NanumSquareNeoBold">나눔스퀘어 네오</option>
+                    <option value="Pretendard-Regular">프리텐다드</option>
+                    <option value="Ownglyph_corncorn-Rg">온클잎 콘콘체</option>
+                    <option value="Chosunilbo_myungjo">조선일보명조</option>
+                    <option value="CookieRun-Regular">쿠키런</option>
+                    <option value="DungGeunMo">둥근모</option>
+                    <option value="InkLipquid">잉크립퀴드</option>
+                    <option value="HANBatang">함초롱바탕</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label for="fontSize">폰트 크기</label>
+                <div style="display:flex;align-items:center;gap:10px;">
+                    <input type="range" id="fontSize" min="10" max="120" value="40" oninput="updatePreview()" />
+                    <span id="fontSizeValue">40px</span>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label for="bgColor">배경색</label>
+                <input type="color" id="bgColor" value="#f10004" oninput="updatePreview()" />
+            </div>
+
+            <div class="control-group">
+                <label for="textColor">글자색</label>
+                <input type="color" id="textColor" value="#ffff00" oninput="updatePreview()" />
+            </div>
+        </aside>
+        <button class="save-banner-button" onclick="saveBanner()">현수막 걸기</button>
+    </div>
+    <!-- ===== /3-Column Layout ===== -->
+
+    <!-- Behind Section -->
+    <div class="behind-section" id="behindSection" style="display:none;">
+        <div class="behind-left">
+            <h1></h1>
+            <p class="behind-text"></p>
+        </div>
+        <div class="behind-right"></div>
+    </div>
+
+    <!-- Modal -->
+    <div id="imageModal" class="modal" onclick="closeModal()">
+        <img class="modal-content" id="modalImg" />
+    </div>
+
+    <script>
+        const sampleData = {
+            "서울시 8개구 특수학교 있다 강서구엔 이미 있다 특수학교는 지역별로 균등하게 설립하라!!!": {
+                title: "무릎 꿇고 호소",
+                description: `서울에 특수학교 두 곳이 추가된다. 8월6일 ...`,
+                images: ["image/교육/강서구 특수학교반대.jpg", "image/교육/무릎.jpg"]
+            },
+            "교실이 불법녹음의 장이 되지 않게 막아주세요!": {
+                title: "교실 속 몰래녹음",
+                description: `최근 서울동부지법은 ...`,
+                images: ["image/교육/교실불법녹음.jpg", "image/교육/주호민.jpg"]
+            },
+            "부처님 위로 케이블카 타는 자는 평생 재수 없다": {
+                title: "평생재수없다?",
+                description: `최근 온라인 커뮤니티와 SNS에서는 ...`,
+                images: ["부처님케이블카.jpg", "케이블카.jpg"]
+            },
+            "잠좀자자! 소음싫어!!": {
+                title: "수면권을 보장하라!",
+                description: `도심 한복판에서 지속되는 생활 소음 ...`,
+                images: ["noise1.jpg", "noise2.jpg"]
+            }
+        };
+
+        function setText(text) {
+            const preview = document.getElementById("preview");
+            preview.textContent = text;
+
+            const data = sampleData[text];
+            if (data) {
+                document.getElementById("behindSection").style.display = "flex";
+                document.querySelector(".behind-left h1").textContent = data.title;
+                document.querySelector(".behind-text").innerHTML = data.description;
+
+                const imageBox = document.querySelector(".behind-right");
+                imageBox.innerHTML = "";
+                data.images.forEach(src => {
+                    const img = document.createElement("img");
+                    img.src = src;
+                    img.alt = data.title + " 이미지";
+                    img.onclick = () => openModal(src);
+                    imageBox.appendChild(img);
+                });
+            } else {
+                document.getElementById("behindSection").style.display = "none";
+            }
+        }
+
+        function goHome() { window.location.href = "오프닝.html"; }
+
+        function openModal(src) {
+            const modal = document.getElementById("imageModal");
+            const modalImg = document.getElementById("modalImg");
+            modal.style.display = "block";
+            modalImg.src = src;
+        }
+        function closeModal() { document.getElementById("imageModal").style.display = "none"; }
+
+        /* ✅ 방향/폰트/크기/색 반영 (고정 width/height 세팅 제거) */
+        function updatePreview() {
+            const font = document.getElementById("fontSelector").value;
+            const size = document.getElementById("fontSize").value;
+            const bg = document.getElementById("bgColor").value;
+            const color = document.getElementById("textColor").value;
+            const orientationSel = document.getElementById("orientation");
+            const orientation = orientationSel ? orientationSel.value : "horizontal";
+
+            const preview = document.getElementById("preview");
+            preview.style.fontFamily = font;
+            // ⬇️ 현재 폰트명을 data-font로 기록
+            preview.setAttribute('data-font', font); preview.style.fontSize = size + "px";
+            preview.style.backgroundColor = bg;
+            preview.style.color = color;
+
+            preview.classList.remove("preview-horizontal", "preview-vertical");
+            if (orientation === "vertical") {
+                preview.classList.add("preview-vertical");
+                /* ✅ 크기를 JS로 강제하지 않음: CSS가 auto로 유연하게 처리 */
+                preview.style.width = "";
+                preview.style.height = "";
+                preview.style.whiteSpace = "normal";
+            } else {
+                preview.classList.add("preview-horizontal");
+                preview.style.width = "";
+                preview.style.height = "";
+                preview.style.whiteSpace = "pre-wrap";
+            }
+
+            document.getElementById("fontSizeValue").textContent = size + "px";
+        }
+
+        /* 초기 반영 */
+        updatePreview();
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+    <script>
+        async function saveBanner() {
+            const preview = document.getElementById('preview');
+            const canvas = await html2canvas(preview, {
+                useCORS: true,
+                scale: 2,
+                backgroundColor: null
+            });
+
+            const dataUrl = canvas.toDataURL('image/png');
+            const saved = JSON.parse(localStorage.getItem('banners') || '[]');
+
+            saved.unshift({
+                id: Date.now(),
+                image: dataUrl,
+                text: preview.textContent,
+                time: new Date().toLocaleString()
+            });
+
+            localStorage.setItem('banners', JSON.stringify(saved));
+
+            // ✅ 저장 후 아카이브 페이지로 이동
+            window.location.href = 'archive.html';
+        }
+    </script>
+
+</body>
+
+</html>

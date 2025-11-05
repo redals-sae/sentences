@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>현수막 아카이브</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Pretendard', sans-serif;
+            background: #111;
+            color: #fff;
+        }
+
+        header {
+            padding: 20px;
+            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 18px;
+            margin: 0;
+        }
+
+        .btn {
+            background: #fff;
+            color: #000;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 12px;
+            cursor: pointer;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .card {
+            background: #1c1c1c;
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .card img {
+            width: 100%;
+            aspect-ratio: 3 / 4;
+            object-fit: contain;
+            background: #000;
+        }
+
+        .meta {
+            padding: 10px;
+            font-size: 12px;
+            color: #ccc;
+        }
+
+        .delete-btn {
+            background: #ff4040;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div>
+            <button class="btn" onclick="window.location.href='customizer.html'">← 돌아가기</button>
+            <button class="btn" onclick="clearAll()">모두 삭제</button>
+        </div>
+    </header>
+
+    <main id="archive" class="grid"></main>
+
+    <script>
+        function loadArchive() {
+            const list = JSON.parse(localStorage.getItem('banners') || '[]');
+            const container = document.getElementById('archive');
+            container.innerHTML = '';
+
+            if (list.length === 0) {
+                container.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:#777;">저장된 현수막이 없습니다.</p>`;
+                return;
+            }
+
+            list.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+      <img src="${item.image}" alt="banner">
+      <div class="meta">
+        <p>${item.text}</p>
+        <p>${item.time}</p>
+        <button class="delete-btn" onclick="deleteBanner(${item.id})">삭제</button>
+      </div>
+    `;
+                container.appendChild(card);
+            });
+        }
+
+        function deleteBanner(id) {
+            const banners = JSON.parse(localStorage.getItem('banners') || '[]');
+            const updated = banners.filter(b => b.id !== id);
+            localStorage.setItem('banners', JSON.stringify(updated));
+            loadArchive();
+        }
+
+        function clearAll() {
+            if (confirm('모든 현수막을 삭제하시겠습니까?')) {
+                localStorage.removeItem('banners');
+                loadArchive();
+            }
+        }
+
+        loadArchive();
+    </script>
+</body>
+
+</html>

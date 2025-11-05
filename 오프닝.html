@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>호소의 문장들</title>
+
+    <!-- 성능: 네트워크 선연결 -->
+    <link rel="preconnect" href="https://fastly.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://hangeul.pstatic.net" crossorigin>
+
+    <style>
+        /* 웹폰트 */
+        @font-face {
+            font-family: 'HANBatang';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2104@1.0/HANBatang.woff') format('woff');
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'SunBatang-Light';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_eight@1.0/SunBatang-Light.woff') format('woff');
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'DungGeunMo';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Chosunilbo_myungjo';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Chosunilbo_myungjo.woff') format('woff');
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'CookieRun-Regular';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/CookieRun-Regular.woff') format('woff');
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Ownglyph_corncorn-Rg';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2412-1@1.0/Ownglyph_corncorn-Rg.woff2') format('woff2');
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Pretendard-Regular';
+            src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'MaruBuri';
+            src: url('https://hangeul.pstatic.net/hangeul_static/webfont/MaruBuri/MaruBuri-Regular.woff2') format('woff2');
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'InkLipquid';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/InkLipquid.woff') format('woff');
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'NanumSquareNeoBold';
+            src: url('https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.woff') format('woff');
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'PyeojinGothic-Bold';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2504-1@1.0/PyeojinGothic-Bold.woff2') format('woff2');
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Danjo-bold-Regular';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/Danjo-bold-Regular.woff2') format('woff2');
+            font-display: swap;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            font-family: 'Noto Sans KR', sans-serif;
+            background: #000;
+            /* body는 고정 → 대규모 리페인트 방지 */
+        }
+
+        /* 전체 스테이지: 배경색은 여기만 변경 */
+        .stage {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+            /* ← 이 배경만 바꿔줌 */
+            will-change: background-color;
+            contain: strict;
+            /* 레이아웃/그림자 고립 */
+        }
+
+        .text-display {
+            max-width: 90vw;
+            max-height: 90vh;
+            font-size: 100pt;
+            font-weight: bold;
+            text-align: center;
+            padding: 20px;
+            word-break: keep-all;
+            cursor: pointer;
+            color: #fff;
+
+            /* 성능 힌트 */
+            contain: content;
+            /* 해당 박스 페인트/레이아웃 고립 */
+            backface-visibility: hidden;
+            transform: translateZ(0);
+            /* 합성 레이어 힌트 */
+            will-change: color, font-family;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="stage">
+        <div class="text-display" id="display"></div>
+    </div>
+
+    <script>
+        const texts = [
+            "故정주영 회장님은 손자교육 다시해라",
+            "서울시 8개구 특수학교 있다 강서구엔 이미 있다 특수학교는 지역별로 균등하게 설립하라!!!",
+            "교실이 불법녹음의 장이 되지 않게 막아주세요!",
+            "흡입독성 인지하고도 거짓광고를 주도한 SK를 즉각 기소하라",
+            "GTX-C노선 은마통과 결사반대 국토부는 왜 속였나",
+            "기후이상변화가 우리탓이냐? 꿀벌폐사 보상대책 즉각 마련하라!",
+            "주민고통 심각하다! 피해 대책 즉각 시행하라!",
+            "장애인 이동권 침해하는 울산시내버스 123,307번 노선 폐지를 철회하라!",
+            "조용한 시위를 부탁 드립니다! 수험생들이 공부하고 있습니다.",
+            "여기서 담배피면 안되요~!",
+            "‘상생’ 해 왔다고요? 월세 때문에 죽겠어요. 내리고 말씀하세요.",
+            "국민이 먼저다! 이슬람 사원 건축 결사 반대한다!",
+            "직진으로 가면 되지! 왜 꺽어서 은마관통? 2만명 주거지 관통할 이유 없다!",
+            "연세중앙교회의 모든 예배 중단을 촉구합니다.",
+            "힘드시죠? 전화하세요!",
+            "전 세 사 기 보 증 금 반 환",
+            "개과천선해서 우리 동네에 이사온거니? 아님 또 사건 만들려고 이사온거니?",
+            "뺨에 손이 닿지않게 조심히 다시니오! 그뺨이 누구 것이든 당신아들 손보다 귀하오!",
+            "삼성왕 이재용 쓰레기 인간 좀 만들어 주이소",
+            "사회적 재난 현장에서 경매 장사하는 당신도 가해자!",
+            "간이식 후 퇴원직전 뇌출혈로 사망했다! 두통호소 무시하고 검사도 하지않은 과실을 인정하고 사과하라!!",
+            "대통력을 내쫓는 새누리당은 패륜아다",
+            "피스톤 펌프 가져간 놈아! 자손만대 도둑놈만 생겨라!",
+            "창피해서 못 살겠어요. 박의원님이나 잘하세요",
+            "납득할 수 없는 리그 최하위 중견수 기용",
+            "불통 프런트 무능 양상문 떠나는 엘지팬",
+            "엘지 프런트 무엇을 했습니까?",
+            "삼가 인천 야구의 명복을 빕니다.",
+            "팬심, SK야구,우승 폄하한 구단관계자 사퇴하라!",
+            "원칙도 상식도 재미도 없는 양상문 야구 ‘암흑기’ 지나니 ‘블랙홀’ 입니까?",
+            "차 팔아 300억 투자의 결과? KI타이거즈의 ‘실패한 시즌’ 300억 투자 실패! 무능한 KIA 타이거즈 단장, 감독 OUT",
+            "정명석 재판 문제있다. 핵심증거 녹취파일 조작 정명석 목사의 억울함을 호소합니다",
+            "서울시장님 당선을 축하드립니다 발달장애인도 서울시민이에요!!",
+            "SK 피해자들의 절규를 들어라!",
+            "현대산업개발 보증금 돌려줄테니 제발 떠나주세요!",
+            "맞아도 소리한번 지르지 못한 내 아들아, 엄마가 미안해",
+            "민주적 절차 없는 독단적인 공학 전환 논의 규탄한다!!",
+            "이태원 참사사고 은마에서 또터진다",
+            "현대그룹 정의선은 목숨팔아 돈버느냐",
+            "우리의 재산과 목숨을 현산에게 맡길순 없다!",
+            "비가오면 천장샌다 니가 와서 살아봐 죽기 전에 신축지어 멀쩡한 집 살고싶다",
+            "비양심적인 고양이, 개 함께 하는 세탁물 주인님들께!! 청결하게 유지하며 내 아이들, 내 가족으로 살고 싶은데.. 다른분들과 달리 살고 싶지 않은데.. 절대! 절대! 금지품목, 아래 게시판 참조 특히! 개, 고양이 함께 하는 세탁물(배설물, 토 포함), 솜, (이불, 베게), 토퍼-속 터짐으로 배수구 막힘. 제발! 장사 안해도 되니 오지마! 다른분들 피해 봄!",
+            "배고파서 못살겠다! 문닫으면 죽는다!",
+            "테크노파크이사장님! 중부경찰서장님! 도시공사사장님! 신용보증기금이사장님! 넘힘들어요..회식좀해주세요",
+            "SNS에 제발 사진좀 올리지 말아 주세요~~!!",
+            "이곳이 사람이 사는 마을이냐 가축이 사는 동네지",
+            "시끄러워 못살겠다! 니가 한번 살아봐라!",
+            "절임배추의 고장 문광! 악취로 썩어간다 청정지역 망치는 동식물퇴비공장 물러가라",
+            "돼지보다 못한인생, 창문열고 살아보자!",
+            "마을버스 이용객도 광주시민이다… 광주시는 당장 마을버스 지원책을 수립하라!",
+            "발파진동으로!! 집 무너질것 같아 무서워 못살겠다!",
+            "가축분뇨 공장시설로 사람이 죽어간다!",
+            "주거 밀집 지역에 장애인직업센터가 웬말이냐?",
+            "집회 소음으로 아기가 잠을 못 자고 울고 있습니다.",
+            "오후에도 쿵웅웅웅~ 못살겠다",
+            "악취로 못살것다!!! 삼천 바이오 퇴비는 물러가라!",
+            "북촌한옥마을 주민도 인간답게 살고싶다",
+            "새벽부터 오는 관광객 주민은 쉬고싶다",
+            "망했습니다…코로나로 손님이 없어도 너무 없어서 힘들어서 대출받았는데 정부가 문닫으라고 합니다 정부믿고 묻지도 않고 따지지도 않고 바로 문닫았습니다..50일동안 임대료, 전기세, 인증비, 저작권료, 보험비, 등등 고정비용이 장난아닙니다…정부는 보상 못한답니다…그래도 살아보겠다고..대출금 갚으려고 다시 열심히 해보려했습니다…또 닫으랍니다…이번에도 역시 법적으로 보상해줄수 없답니다… ㅠㅠ 가게 계약기간도 남았는데…보증금 다까먹어도 모자릅니다…폐업이 아니라 진짜 망했습니다…앞으로 남은 대출은 어찌 갚아야할지…캄캄합니다…그동안 와라코인노래연습장을 이용해주셔서 감사합니다…",
+            "잘못했습니다. 반성하고 거듭나겠습니다.",
+            "정의선 회장님! 제발 감독 좀 교체해 주세요!",
+            "미친 집값, 나는 집에 갈 수 있을가? 이 정부를 탓하던 집값이 마침내 미쳐버렸어. 진실들은 사라졌어 소리질러~(내로남불!!) You must come back hom? 집 없는 죄인! 갈 집이 없어. You must come back home? 집 없는 죄인! 전세살이 너무힘들어 You must come back home? 집 없는 죄인! 집 값이 너무 비싸. You must come back home? 난 능력없는 인간 쓰레긴가봐. 내가 가야 할 곳은??"
+        ];
+
+        const fonts = [
+            "'Danjo-bold-Regular'",
+            "'PyeojinGothic-Bold'",
+            "'SunBatang-Light'",
+            "'MaruBuri'",
+            "'NanumSquareNeoBold'",
+            "'Pretendard-Regular'",
+            "'Ownglyph_corncorn-Rg'",
+            "'Chosunilbo_myungjo'",
+            "'CookieRun-Regular'",
+            "'DungGeunMo'",
+            "'InkLipquid'",
+            "'HANBatang'"
+        ];
+
+        const colors = ["#f10004", "red", "green", "blue", "yellow", "white", "black", "purple", "orange", "pink", "#00ffff"];
+
+        const stage = document.querySelector('.stage');
+        const display = document.getElementById('display');
+
+        let textIndex = 0;
+        let fontIndex = 0;
+        let prevBg = "", prevFg = "";
+        let timerId = null;
+
+        function getNewColorPair() {
+            let bg, fg, tries = 0;
+            do {
+                bg = colors[Math.floor(Math.random() * colors.length)];
+                fg = colors[Math.floor(Math.random() * colors.length)];
+                tries++;
+                if (tries > 20) break; // 안전장치
+            } while (bg === fg || (bg === prevBg && fg === prevFg));
+            prevBg = bg; prevFg = fg;
+            return { bg, fg };
+        }
+
+        function tick() {
+            const nextText = texts[textIndex];
+            const nextFont = fonts[fontIndex];
+            const { bg, fg } = getNewColorPair();
+
+            // 한 프레임(rAF)에서 한번에 반영 → 리플로우 최소화
+            window.requestAnimationFrame(() => {
+                display.textContent = nextText;
+                display.style.fontFamily = nextFont;
+                stage.style.backgroundColor = bg;  // body가 아니라 stage만 변경
+                display.style.color = fg;
+            });
+
+            textIndex = (textIndex + 1) % texts.length;
+            fontIndex = (fontIndex + 1) % fonts.length;
+        }
+
+        // ▶ 폰트가 모두 준비된 뒤 시작 (초기 끊김 제거의 핵심)
+        async function preloadFonts() {
+            const loads = fonts.map(f => document.fonts.load(`16px ${f}`));
+            try {
+                await Promise.all(loads);
+                await document.fonts.ready; // 폰트셋 준비 대기
+            } catch (e) {
+                // 폰트 일부 실패해도 진행 (네트워크 이슈 등)
+            }
+        }
+
+        async function start() {
+            await preloadFonts();
+            tick(); // 즉시 1회
+            timerId = setInterval(tick, 1500); // 1초마다 즉시 전환
+        }
+
+        // 클릭 시 다른 페이지로 이동 (기존 동작 유지)
+        display.addEventListener('click', () => {
+            window.location.href = 'customizer.html';
+        });
+
+        start();
+    </script>
+</body>
+
+</html>
